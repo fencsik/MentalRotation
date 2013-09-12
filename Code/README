@@ -1,0 +1,68 @@
+Shepard/Metzler Mental Rotation Experiment Replication
+
+Copyright (c) 2009 Trystan Larey-Williams, trystan@trystan.org
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation version 3 of the License.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see http://www.gnu.org/licenses/.
+
+
+Introduction
+------------------------------------------------------------------------------
+First, it's important to understand this is not an 'exact' replication in many
+respects. The original Shepard experiment predated fast 3D computer graphics
+and was preformed using pre-made picture cards. This experiment uses
+semi-random objects that bear a close similarity to the types of objects used
+by Shepard.
+
+I created this experiment in order to explore OpenGL interaction in under
+Matlab. Additionally, I wanted to manipulate certain variables such as the
+degrees type(class) of object to verify predictions made by emerging models of
+top-down processes of human vision. This replication provided a convinient point
+to start.
+
+I hope others may find this code a useful starting point for their own work.
+
+
+Setup & System Requirements
+------------------------------------------------------------------------------
+-A recent version of Matlab is required.
+        -Tested on 7.7.0.471 on Ubuntu Linux v9.04.
+
+-A modern video card supporting hardware accelerated OpenGL is required.
+        -Tested on NVidia GForce 7100 GS
+
+-The PsychToolbox version 3 must be installed and in the Matlab path.
+        -Tested on 3.0.8, latest build as of 9-8-09.
+
+-Move the files in this package to a directory in the Matlab path.
+
+-Run 'Shepard( nTrials )' where nTrials is the number of trials.
+        -The highest screen number detected on the system will be used.
+
+
+Using
+------------------------------------------------------------------------------
+-Each trial displays two objects built from cubes. The objects will either be
+the same objects, where one is rotated x increments of 20 degress on the XY
+plane, or different objects.
+
+-Press '1' if the objects are the same or '2' if they're different
+
+-If the correct response is given, the objects will turn green. If the wrong
+response is given, the objects will turn red.
+
+-After all trials are complete, the response time for all correct responses
+are plotted against the number of degrees rotated. Incorrect responses are
+dropped from analysis.
+
+-A linear fit is performed using all correct responses and plotted on top of
+the individual responses.

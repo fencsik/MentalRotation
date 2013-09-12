@@ -1,0 +1,42 @@
+/* By Jérôme GUINOT aka 'JeGX' - jegx [at] ozone3d [dot] net
+Initial draft: February 19, 2006
+Modified by Trystan Larey-Williams for multi-light support: Sep. 1, 2009
+*/
+
+varying vec3 normal, eyeVec;
+varying vec3 lightDir[3];
+
+void main (void)
+{
+        vec3 N = normalize(normal);
+        vec4 final_color;
+        vec3 L;
+        float lambertTerm, specular;
+        vec3 E = normalize(eyeVec);
+        vec3 R;
+
+        for( int i = 0; i < 3; i++ ) {
+                L = normalize(lightDir[i]);
+                lambertTerm = dot(N,L);
+
+                final_color += (gl_FrontLightModelProduct.sceneColor * gl_FrontMaterial.ambient) +
+                               (gl_LightSource[i].ambient * gl_FrontMaterial.ambient);
+
+                if(lambertTerm > 0.0)
+                {
+                        R = reflect(-L, N);
+
+                        final_color += gl_LightSource[i].diffuse *
+                                       gl_FrontMaterial.diffuse *
+                                                   lambertTerm;
+
+                        specular = pow( max(dot(R, E), 0.0),
+                                         gl_FrontMaterial.shininess );
+                        final_color += gl_LightSource[i].specular *
+                                       gl_FrontMaterial.specular *
+                                                   specular;
+                }
+        }
+
+        gl_FragColor = final_color;
+}
