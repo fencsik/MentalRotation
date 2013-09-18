@@ -276,3 +276,7 @@ function LoadPhongShaders()
     glLinkProgram( prog );
     glUseProgram( prog );
 end
+
+%%% Local Variables:
+%%% mode:Octave
+%%% End:
