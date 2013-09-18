@@ -4,8 +4,10 @@ function r = Shepard( nTrials )
 %   the user enters hits either '1' or '2' denoting the two objects are the
 %   same or different object respectively.
 %
-%   Author: Trystan Larey-Williams
-%   Last Revision: 9-8-2009
+%   Authors: Trystan Larey-Williams and David E. Fencsik
+%   Last Revision: 9-17-2013
+
+    Version = '0.8';
 
     KbName('UnifyKeyNames');
     light0Vec = [4 -5 10 0]; % light0 position
