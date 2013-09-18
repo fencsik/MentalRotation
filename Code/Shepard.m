@@ -123,15 +123,18 @@ function r = Shepard( nTrials )
             Screen('BeginOpenGL', win);
 
         end
-    catch e
-        ListenChar(0);
-        Screen('CloseAll');
-        throw( e );
+    catch
+        ple();
     end
 
     % Cleanup
+    Priority(0);
+    fclose('all');
     ListenChar(0);
+    ShowCursor();
     Screen('CloseAll');
+    clear -global;
+    clear -all;
 end
 
 function DrawTestObjs( obj1, obj2, rx20 )
