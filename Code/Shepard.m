@@ -141,16 +141,93 @@ function DrawTestObjs( obj1, obj2, rx20 )
     glPushMatrix(); % Draw object on right side of screen
     glTranslatef( 4.0, 0.0, 0.0 );
     glRotatef( 30, 1, 1, 1 );
-    obj1.Center();
-    obj1.Draw();
+    CenterObject(obj1);
+    DrawObject(obj1);
     glPopMatrix();
 
     glPushMatrix(); % Draw object on left side of screen
     glTranslatef( -4.0, 0.0, 0.0 );
     glRotatef( rx20 * 20, 0, 0, 1 );
     glRotatef( 30, 1, 1, 1 );
-    obj2.Center();
-    obj2.Draw();
+    CenterObject(obj2);
+    DrawObject(obj2);
+    glPopMatrix();
+end
+
+function TranslateX( inverse )
+    if inverse
+        glTranslatef( -1.0, 0.0, 0.0 );
+    else
+        glTranslatef( 1.0, 0.0, 0.0 );
+    end
+end
+function TranslateY( inverse )
+    if inverse
+        glTranslatef( 0.0, -1.0, 0.0 );
+    else
+        glTranslatef( 0.0, 1.0, 0.0 );
+    end
+end
+function TranslateZ( inverse )
+    if inverse
+        glTranslatef( 0.0, 0.0, -1.0 );
+    else
+        glTranslatef( 0.0, 0.0, 1.0 );
+    end
+end
+
+function CenterObject(obj)
+    fun = obj.funcs{1};
+    fun( true );
+    fun = obj.funcs{2};
+    fun( true );
+    fun = obj.funcs{3};
+    fun( true );
+    fun = obj.funcs{1};
+    fun( true );
+end
+
+function DrawObject(obj)
+    glPushMatrix();
+
+    %% 1st segment
+    glutSolidCube( 1.0 );
+    glutWireCube( 1.0 );
+    fun = obj.funcs{1};
+    fun( false );
+    glutSolidCube( 1.0 );
+    glutWireCube( 1.0 );
+
+    %%2nd segment
+    fun = obj.funcs{2};
+    fun( false );
+    glutSolidCube( 1.0 );
+    glutWireCube( 1.0 );
+    fun( false );
+    glutSolidCube( 1.0 );
+    glutWireCube( 1.0 );
+    fun( false );
+    glutSolidCube( 1.0 );
+    glutWireCube( 1.0 );
+
+    %%3rd segment
+    fun = obj.funcs{3};
+    fun( false );
+    glutSolidCube( 1.0 );
+    glutWireCube( 1.0 );
+    fun( false );
+    glutSolidCube( 1.0 );
+    glutWireCube( 1.0 );
+
+    %%4th segment
+    fun = obj.funcs{1};
+    fun( false );
+    glutSolidCube( 1.0 );
+    glutWireCube( 1.0 );
+    fun( false );
+    glutSolidCube( 1.0 );
+    glutWireCube( 1.0 );
+
     glPopMatrix();
 end
 
@@ -158,96 +235,8 @@ function r = BuildObject()
 % Encapsulates drawing functions and transforms to build snake-like
 % object from a composition of cubes
 
-    objOrder = [];
-
-    function TranslateX( inverse )
-        if inverse
-            glTranslatef( -1.0, 0.0, 0.0 );
-        else
-            glTranslatef( 1.0, 0.0, 0.0 );
-        end
-    end
-    function TranslateY( inverse )
-        if inverse
-            glTranslatef( 0.0, -1.0, 0.0 );
-        else
-            glTranslatef( 0.0, 1.0, 0.0 );
-        end
-    end
-    function TranslateZ( inverse )
-        if inverse
-            glTranslatef( 0.0, 0.0, -1.0 );
-        else
-            glTranslatef( 0.0, 0.0, 1.0 );
-        end
-    end
-
-    funcs = {@TranslateX, @TranslateY, @TranslateZ};
-
-    function Center()
-        fun = funcs{objOrder(1)};
-        fun( true );
-        fun = funcs{objOrder(2)};
-        fun( true );
-        fun = funcs{objOrder(3)};
-        fun( true );
-        fun = funcs{objOrder(1)};
-        fun( true );
-    end
-
-    function Draw()
-        glPushMatrix();
-
-        % 1st segment
-        glutSolidCube( 1.0 );
-        glutWireCube( 1.0 );
-        fun = funcs{objOrder(1)};
-        fun( false );
-        glutSolidCube( 1.0 );
-        glutWireCube( 1.0 );
-
-        %2nd segment
-        fun = funcs{objOrder(2)};
-        fun( false );
-        glutSolidCube( 1.0 );
-        glutWireCube( 1.0 );
-        fun( false );
-        glutSolidCube( 1.0 );
-        glutWireCube( 1.0 );
-        fun( false );
-        glutSolidCube( 1.0 );
-        glutWireCube( 1.0 );
-
-        %3rd segment
-        fun = funcs{objOrder(3)};
-        fun( false );
-        glutSolidCube( 1.0 );
-        glutWireCube( 1.0 );
-        fun( false );
-        glutSolidCube( 1.0 );
-        glutWireCube( 1.0 );
-
-        %4th segment
-        fun = funcs{objOrder(1)};
-        fun( false );
-        glutSolidCube( 1.0 );
-        glutWireCube( 1.0 );
-        fun( false );
-        glutSolidCube( 1.0 );
-        glutWireCube( 1.0 );
-
-        glPopMatrix();
-    end
-
-    indxs = [1 2 3];
-    while( numel(funcs) ~= numel(objOrder) )
-        n = ceil(numel(indxs) * rand());
-        objOrder = [indxs(n) objOrder]; %#ok<AGROW>
-        indxs(n) = [];
-    end
-
-    r.Draw = @Draw;
-    r.Center = @Center;
+    r = struct();
+    r.funcs = Shuffle({@TranslateX, @TranslateY, @TranslateZ});
 end
 
 function LoadPhongShaders()
