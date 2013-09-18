@@ -11,8 +11,6 @@ function r = Shepard( nTrials )
     light0Vec = [4 -5 10 0]; % light0 position
     light1Vec = [-4 5 10 0]; % light1 position
     trial = 1;
-    db = DataBlock();        % datastruct for experiment results
-    trialCallback = db.Callback;
     ListenChar(2);
 
     try
@@ -102,7 +100,6 @@ function r = Shepard( nTrials )
             if ~correct
                 glMaterialfv(GL_FRONT_AND_BACK,GL_DIFFUSE, [ 0.8 0 0 1 ]);
             elseif correct && ~diff
-                trialCallback( msec, rx20*20 );
                 glMaterialfv(GL_FRONT_AND_BACK,GL_DIFFUSE, [ 0 0.8 0 1 ]);
             else
                 glMaterialfv(GL_FRONT_AND_BACK,GL_DIFFUSE, [ 0 0.8 0 1 ]);
@@ -134,10 +131,7 @@ function r = Shepard( nTrials )
 
     % Cleanup
     ListenChar(0);
-    db.Plot();
     Screen('CloseAll');
-
-    r = db; % Return data for evaluation
 end
 
 function DrawTestObjs( obj1, obj2, rx20 )
