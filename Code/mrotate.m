@@ -536,6 +536,8 @@ function Shutdown ()
     Priority(0);
     fclose('all');
     ShutdownGraphics();
+    clear -global;
+    clear -all;
 end
 
 function ShutdownGraphics ()
