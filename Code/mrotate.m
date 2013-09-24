@@ -37,6 +37,14 @@ end
 function PresentInstructions ()
     global par;
     ClearScreen();
+    mesg = sprintf('Press any button to begin a block of %d trials', par.totalTrials);
+    DrawFormattedText(par.mainWindow, mesg, 'center', 'center', par.textColor);
+    FlipNow();
+    ClearScreen();
+    [keyTime, keyCodes] = WaitForButtonPress();
+    if (keyCodes(par.abortKey))
+        AbortKeyPressed();
+    end
     par.tLastOnset = FlipNow();
     par.targNextOnset = par.tLastOnset + 0.500;
 end
