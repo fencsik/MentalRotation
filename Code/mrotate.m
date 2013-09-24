@@ -64,7 +64,7 @@ function RunManyTrials (n)
              MaxPriority(par.mainWindow));
     end
 end
-    
+
 function PresentBlockFeedback ()
 end
 
@@ -481,7 +481,7 @@ function InitializePostGraphics ()
     SetWindowFont(par.mainWindow, par.textFont, par.textSize, par.textStyle);
 
     CorrectDurations();
-    
+
     LoadStimuli();
 end
 
