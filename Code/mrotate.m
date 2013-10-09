@@ -90,6 +90,7 @@ function RunOneTrial(samediff, angle)
     CollectResponse();
     ProcessResponse(samediff);
     SaveData();
+    SaveDataFile();
     PresentFeedback();
     TakeABreak();
     EndTrial();
@@ -220,6 +221,9 @@ function ProcessResponse (samediff)
 end
 
 function SaveData ()
+    global par;
+
+function SaveDataFile ()
     global par;
     fid = fopen(par.dataFileName, 'r');
     if (fid == -1)
