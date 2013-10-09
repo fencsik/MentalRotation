@@ -104,7 +104,7 @@ function InitializeTrial (samediff, angle)
     par.targNextOnset = par.tLastOnset + par.dur.preTrialBlank;
     % initialize block- and trial-level information for the data storage
     par.trialTimestamp = datestr(now, 'yyyymmdd.HHMMSS');
-    par.trialSamediff = samediff;
+    par.trialSameDiff = samediff;
     par.trialAngle = angle;
     % select stimuli
     PrepareTrialStimuli(samediff, angle);
@@ -244,7 +244,7 @@ function SaveDataFile ()
     fprintf(fid, '%d\t%s\t%s\t%s\t%s\t%d\t%s\t%s\t%0.0f\t%s\t%d\t%0.0f\n', ...
             par.subjectID, par.experiment, par.version, par.blockString, ...
             par.phaseString, par.trialCounter, par.trialTimestamp, ...
-            par.trialSamediff, par.trialAngle, ...
+            par.trialSameDiff, par.trialAngle, ...
             par.trialResponse, par.trialAccuracy, par.trialRT);
     fclose(fid);
 end
