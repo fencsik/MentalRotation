@@ -12,6 +12,8 @@ function mrotate (varargin)
         ple();
     end
     Shutdown();
+    clear -global;
+    clear -all;
 end
 
 function RunExperiment ()
@@ -544,8 +546,6 @@ function Shutdown ()
     Priority(0);
     fclose('all');
     ShutdownGraphics();
-    clear -global;
-    clear -all;
 end
 
 function ShutdownGraphics ()
