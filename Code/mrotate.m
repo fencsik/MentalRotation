@@ -29,7 +29,6 @@ end
 
 function RunBlock ()
     global par;
-    par.trialCounter = 0;
     PresentInstructions();
     PresentPracticePhase();
     PresentExperimentalPhase();
@@ -222,6 +221,14 @@ end
 
 function SaveData ()
     global par;
+    if (~par.saveData)
+        return;
+    end
+    par.blockSameDiff(par.trialCounter) = par.trialSameDiff;
+    par.blockAngle(par.trialCounter) = par.trialAngle;
+    par.blockRT(par.trialCounter) = par.trialRT;
+    par.blockAcc(par.trialCounter) = par.trialAccuracy;
+end
 
 function SaveDataFile ()
     global par;
@@ -362,6 +369,11 @@ function InitializePreGraphics ()
     par.dataFileName = sprintf('Data-%s-%s-%04d.txt', ...
                                par.experimenter, par.experiment, par.subjectID);
     par.totalTrials = par.nPracticeTrials + par.nExperimentalTrials;
+    par.trialCounter = 0;
+    par.blockSameDiff = cell(par.totalTrials, 1);
+    par.blockAngle = nan(par.totalTrials, 1);
+    par.blockRT = nan(par.totalTrials, 1);
+    par.blockAcc = nan(par.totalTrials, 1);
 end
 
 function InitializeResponses()
