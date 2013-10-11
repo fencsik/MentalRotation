@@ -383,6 +383,8 @@ function LoadSettingsFile ()
 % Currently a hack.  Load settings that will ultimately be stored in a
 % settings file
     global par Experiment Version;
+    par.nPracticeTrials = 30;
+    par.nExperimentalTrials = 270;
     par.experiment = Experiment;
     par.version = Version;
     par.stimulusSeparationFactor = 2.0;
