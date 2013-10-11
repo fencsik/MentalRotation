@@ -232,28 +232,16 @@ end
 
 function SaveDataFile ()
     global par;
-    fid = fopen(par.dataFileName, 'r');
-    if (fid == -1)
-        fid = fopen(par.dataFileName, 'w');
-        if (fid == -1)
-            error('cannot create file %s', par.dataFileName);
-        end
-        fprintf(fid, ['Subject\tExperiment\tVersion\tBlock\tTrialType\t', ...
-                      'Trial\tTimestamp\tSameDiff\tRotation\t', ...
-                      'Response\tAcc\tRT\n']);
-    else
-        fclose(fid);
-        fid = fopen(par.dataFileName, 'a');
-        if (fid == -1)
-            error('cannot open file %s', par.dataFileName);
-        end
-    end
+    header = ['Subject\tExperiment\tVersion\tBlock\tTrialType\t', ...
+              'Trial\tTimestamp\tSameDiff\tRotation\t', ...
+              'Response\tAcc\tRT\n'];
+    fid = OpenFileWithHeader(par.dataFileName, header);
     fprintf(fid, '%d\t%s\t%s\t%s\t%s\t%d\t%s\t%s\t%0.0f\t%s\t%d\t%0.0f\n', ...
             par.subjectID, par.experiment, par.version, par.blockString, ...
             par.phaseString, par.trialCounter, par.trialTimestamp, ...
             par.trialSameDiff, par.trialAngle, ...
             par.trialResponse, par.trialAccuracy, par.trialRT);
-    fclose(fid);
+    CloseFile(fid);
 end
 
 function PresentFeedback ()
@@ -950,6 +938,39 @@ function AbortKeyPressed ()
     ClearScreen();
     t2 = Flip(t1 + 0.993);
     par.targNextOnset = t2 + .233;
+end
+
+function fid = OpenFileWithHeader (filename, header)
+% Opens a file for writing and returns the handle.  If the file exists,
+% open it for appending.  If it does not exist, add the supplied header
+% first.
+    if (header(end) ~= '\n')
+        header = sprintf('%s\n', header);
+    end
+    fid = fopen(filename, 'r');
+    if (fid == -1)
+        % file doesn't exist, so open it and write out the header
+        fid = fopen(filename, 'w');
+        if (fid == -1)
+            error('cannot create file %s', filename);
+        end
+        fprintf(fid, header);
+    else
+        CloseFile(fid);
+        fid = fopen(filename, 'a');
+        if (fid == -1)
+            error('cannot open file %s', filename);
+        end
+    end
+end
+
+function success = CloseFile(fid)
+    x = fclose(fid);
+    if (x == 0)
+        success = 1;
+    else
+        success = 0;
+    end
 end
 
 function [names, average] = AggregateMean (xin, yin, index)
