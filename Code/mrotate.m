@@ -1004,8 +1004,8 @@ end
 function [names, average] =  AggregateMeanNumeric (x, y)
     names = unique(x);
     average = nan(size(names));
-    for (level = names)
-        average(names == level) = mean(y(x == level));
+    for (i = 1:numel(names))
+        average(i) = mean(y(x == names(i)));
     end
 end
 
