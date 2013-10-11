@@ -952,6 +952,40 @@ function AbortKeyPressed ()
     par.targNextOnset = t2 + .233;
 end
 
+function [names, average] = AggregateMean (xin, yin, index)
+% Separates y by levels of x, optionally selecting values specified by
+% index.  Assumes x and y are vectors.  Matrix arguments are untested and
+% may create problems.
+    if (nargin >= 3)
+        x = xin(index);
+        y = yin(index);
+    else
+        x = xin;
+        y = yin;
+    end
+    if (iscell(x))
+        [names, average] = AggregateMeanString(x, y);
+    else
+        [names, average] = AggregateMeanNumeric(x, y);
+    end
+end
+
+function [names, average] =  AggregateMeanString (x, y)
+    names = unique(x);
+    average = nan(size(names));
+    for (i = 1:numel(names))
+        average(i) = mean(y(strcmp(x, names{i})));
+    end
+end
+
+function [names, average] =  AggregateMeanNumeric (x, y)
+    names = unique(x);
+    average = nan(size(names));
+    for (level = names)
+        average(names == level) = mean(y(x == level));
+    end
+end
+
 %%% Local Variables:
 %%% mode:Matlab
 %%% End:
