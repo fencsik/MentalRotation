@@ -428,6 +428,7 @@ function LoadSettingsFile ()
     par.nExperimentalTrials = 270;
     par.experiment = Experiment;
     par.version = Version;
+    par.blockString = 'Block';
     par.stimulusSeparationFactor = 2.0;
     par.displayWidth = 300;
     par.displayHeight = 100;
