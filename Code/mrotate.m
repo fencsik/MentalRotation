@@ -443,6 +443,8 @@ function TestingSettings ()
     global par;
     par.experimenter = 'DEF';
     par.subjectID = 999;
+    par.subjectAge = 212;
+    par.subjectSex = 'M';
     par.blockString = 'Test';
     par.angleList = [45 90];
     par.nPracticeTrials = 1;
