@@ -446,9 +446,9 @@ function TestingSettings ()
     par.subjectAge = 212;
     par.subjectSex = 'M';
     par.blockString = 'Test';
-    par.angleList = [45 90];
+    par.angleList = [20 60 100];
     par.nPracticeTrials = 1;
-    par.nExperimentalTrials = 4;
+    par.nExperimentalTrials = 12;
 end
 
 function InitializeExperimenterInput ()
