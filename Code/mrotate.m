@@ -11,6 +11,11 @@ function mrotate (varargin)
     catch
         ple();
     end
+    try
+        SaveBlockData();
+    catch
+        ple();
+    end
     Shutdown();
     clear -global;
     clear -all;
@@ -75,6 +80,39 @@ function RunManyTrials (n)
 end
 
 function PresentBlockFeedback ()
+end
+
+function SaveBlockData ()
+    global par;
+    if (~BlockDataExists())
+        return;
+    end
+    [namesAccuracy, avgAccuracy] = ...
+        AggregateMean(par.blockAngle, par.blockAcc, ...
+                      par.blockAcc >= 0 & strcmp(par.blockSameDiff, 'same'));
+    avgAccuracy = 100 * avgAccuracy;
+    [namesRT, avgRT] = ...
+        AggregateMean(par.blockAngle, par.blockRT, ...
+                      par.blockAcc == 1 & strcmp(par.blockSameDiff, 'same'));
+    headerAcc = sprintf('\tAccuracy%d', namesAccuracy);
+    headerRT = sprintf('\tRT%d', namesRT);
+    header = sprintf('Subject\tAge\tSex\tExperiment\tVersion\tBlock\tTimestamp%s%s', ...
+                     headerAcc, headerRT);
+    fid = OpenFileWithHeader(par.blockDataFileName, header);
+    fprintf(fid, '%d\t%d\t%s\t%s\t%s\t%s\t%s', ...
+            par.subjectID, par.subjectAge, par.subjectSex, ...
+            par.experiment, par.version, par.blockString, par.trialTimestamp);
+    fprintf(fid, '\t%0.1f', avgAccuracy);
+    fprintf(fid, '\t%0.0f', avgRT);
+    fprintf(fid, '\n');
+    CloseFile(fid);
+end
+
+function status = BlockDataExists ()
+% Determine whether any block-level data has been saved
+    global par;
+    status = exist('par', 'var') && isstruct(par) && ...
+             isfield(par, 'blockAcc') && ~all(isnan(par.blockAcc));
 end
 
 
@@ -357,6 +395,8 @@ function InitializePreGraphics ()
     % based on other settings
     par.dataFileName = sprintf('Data-%s-%s-%04d.txt', ...
                                par.experiment, par.experimenter, par.subjectID);
+    par.blockDataFileName = sprintf('DataSummary-%s-%s.txt', ...
+                                    par.experiment, par.experimenter);
     par.totalTrials = par.nPracticeTrials + par.nExperimentalTrials;
     par.trialCounter = 0;
     par.blockSameDiff = cell(par.totalTrials, 1);
