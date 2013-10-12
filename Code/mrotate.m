@@ -80,6 +80,21 @@ function RunManyTrials (n)
 end
 
 function PresentBlockFeedback ()
+    global par;
+    ClearScreen();
+    mesg = sprintf(['The block of trials is complete.\n\n\n', ...
+                    'Please inform the experimenter.\n\n\n', ...
+                    'Thank you!']);
+    DrawFormattedText(par.mainWindow, mesg, 'center', 'center', par.textColor);
+    FlipNow();
+    ClearScreen();
+    done = 0;
+    while (~done)
+        [keyTime, keyCode] = WaitForButtonPress();
+        if (keyCode(par.abortKey))
+            done = 1;
+        end
+    end
 end
 
 function SaveBlockData ()
