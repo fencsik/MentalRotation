@@ -410,8 +410,8 @@ function InitializePreGraphics ()
     % based on other settings
     par.dataFileName = sprintf('Data-%s-%s-%04d.txt', ...
                                par.experiment, par.experimenter, par.subjectID);
-    par.blockDataFileName = sprintf('DataSummary-%s-%s.txt', ...
-                                    par.experiment, par.experimenter);
+    par.blockDataFileName = sprintf('DataSummary-%s-%s-%04d.txt', ...
+                                    par.experiment, par.experimenter, par.subjectID);
     par.totalTrials = par.nPracticeTrials + par.nExperimentalTrials;
     par.trialCounter = 0;
     par.blockSameDiff = cell(par.totalTrials, 1);
