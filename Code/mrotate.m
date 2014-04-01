@@ -424,8 +424,7 @@ function InitializeResponses()
     global par;
     % par.responses should hold one key for same and one key for diff, in that order
     if (IsLinux())
-        %par.responses = [KbName('a'), KbName('apostrophe')];
-        error('Linux response key names need to be determined');
+        par.responses = [KbName('z'), KbName('/?')];
     else
         par.responses = [KbName('z'), KbName('/?')];
     end
