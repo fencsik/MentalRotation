@@ -636,7 +636,7 @@ end
 function HandleInputArguments (varargin)
     global InputArguments
     if (nargin > 0)
-        InputArguents.nTrials = varargin{1};
+        InputArguments.nTrials = varargin{1};
     end
     if (nargin > 1)
         InputArguments.nPracticeTrials = varargin{2};
