@@ -1,6 +1,6 @@
 function mrotate (varargin)
     global Experiment = 'PSYC4802-20142';
-    global Version = '0.98';
+    global Version = '1.0';
     global TestFlag = 0;
     if (nargin > 0)
         HandleInputArguments(varargin{:})
