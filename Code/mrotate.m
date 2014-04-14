@@ -439,7 +439,7 @@ function LoadSettingsFile ()
 % settings file
     global par Experiment Version;
     par.nPracticeTrials = 30;
-    par.nExperimentalTrials = 270;
+    par.nExperimentalTrials = 120;
     par.experiment = Experiment;
     par.version = Version;
     par.blockString = 'Block';
