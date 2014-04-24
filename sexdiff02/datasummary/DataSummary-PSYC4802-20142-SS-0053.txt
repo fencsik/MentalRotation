@@ -1,0 +1,2 @@
+Experimenter	Subject	Age	Sex	Experiment	Version	Block	Timestamp	Accuracy20	Accuracy60	Accuracy100	RT20	RT60	RT100
+SS	53	19	F	PSYC4802-20142	1.0	Block	20140423.121059	70.0	70.0	75.0	2981	2774	2564
