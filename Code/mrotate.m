@@ -542,7 +542,7 @@ function InitializeGraphics ()
     end
     global par;
     Screen('Preference', 'SkipSyncTests', 0);
-    Screen('Preference', 'VisualDebugLevel', 4);
+    Screen('Preference', 'VisualDebugLevel', 3);
     screenNumber=max(Screen('Screens'));
     [par.mainWindow, par.mainWindowRect] = ...
         Screen('OpenWindow', screenNumber, par.backgroundColor, [], 32, 2);
