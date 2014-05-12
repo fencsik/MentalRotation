@@ -41,11 +41,12 @@ f.CombineSummaries <- function () {
     allData <- allData[allData$Version != 0.98, ]
 
     ## Filter out subjects known to have problems.
-    ##  - Obviously unmotivated: 61,
+    ##  - Obviously unmotivated: 61, 143
     ##  - Ran twice: 78
     ##  - Blatant fast guesses: 109, 123
     allData <- allData[allData$Subject != 61 & allData$Subject != 78 &
-                       allData$Subject != 109 & allData$Subject != 123, ];
+                       allData$Subject != 109 & allData$Subject != 123 &
+                       allData$Subject != 143, ];
 
     ## Filter out subjects with overall "same" accuracy less than 60%: 20,
     ## 23, 50, 100, and 113
