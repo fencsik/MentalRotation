@@ -856,9 +856,14 @@ function response = GetStringInput (prompt, default, confirm)
     done = 0;
     while (~done)
         response = GetResponse(prompt, default);
-        done = ~isempty(response);
+        [response, success] = CleanStringInput(response);
         if (confirm)
-            done = ConfirmResponse(response);
+            confirmed = ConfirmResponse(response);
+        else
+            confirmed = 1;
+        end
+        if (success && ~isempty(response) && confirmed)
+            done = 1;
         end
     end
 end
