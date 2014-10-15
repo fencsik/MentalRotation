@@ -976,6 +976,20 @@ function confirmed = ConfirmResponse(response)
     end
 end
 
+function [cleanedString, success] = CleanStringInput(inputString)
+    if (~ischar(inputString))
+        cleanedString = inputString;
+        success = 0;
+        return;
+    end
+    try
+        cleanedString = regexprep(inputString, '[^a-zA-Z0-9]', '');
+    catch
+        cleanedString = inputString;
+    end
+    success = 1;
+end
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Miscellaneous Functions
