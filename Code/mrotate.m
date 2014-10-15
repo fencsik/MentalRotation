@@ -905,6 +905,9 @@ function [success, responseOut] = ProcessScalarResponse(responseIn, rtype)
     if (isempty(responseIn))
         success = 0;
         responseOut = [];
+    elseif (isnumeric(responseIn))
+        success = 1;
+        responseOut = responseIn;
     elseif (any(rtype == 'dif')) % match d/i = integer; f = float
         success = 0;
         [responseOut, n] = sscanf(responseIn, '%f');
@@ -915,8 +918,8 @@ function [success, responseOut] = ProcessScalarResponse(responseIn, rtype)
             end
         end
     else
-        success = 1;
-        responseOut = responseIn;
+        success = 0;
+        responseOut = [];
     end
 end
 
