@@ -666,7 +666,7 @@ end
 
 function files = FindStimulusFiles()
     directories = {'.', 'stim', ...
-                   '~/Dropbox/sync/classes/splab/Experiments/MentalRotation/stim'};
+                   '~/Documents/sync/classes/splab/Experiments/MentalRotation/stim'};
     for (i = 1:numel(directories))
         files = ListImageFiles(directories{i});
         if (~isempty(files))
