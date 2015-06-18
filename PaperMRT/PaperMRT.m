@@ -52,7 +52,7 @@ function GeneratePracticeTests ()
     global par;
     par.practice = 1;
     par.testName = 'Practice';
-    par.fileName = GetFilename('Practice');
+    par.fileName = GetFilename(par.testName);
     fid = OpenOutputFile(par.fileName);
     PrintHeader(fid);
     nTrials = size(par.practiceAngles, 1);
