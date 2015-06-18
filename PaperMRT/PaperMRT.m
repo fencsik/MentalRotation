@@ -65,7 +65,6 @@ function GeneratePracticeTests ()
             GenerateMultipliers(par.nStimuli) .* par.practiceAngles(i, 1:par.nStimuli);
         par.trialSameDiff = par.practiceSameDiff(i, 1:par.nStimuli);
         par.trialStimuli = SelectStimuliForTrial(par.trialSameDiff);
-        disp(par.trialStimuli);
         PrintTrialLatexOutput(fid);
     end
     PrintFooter(fid);
