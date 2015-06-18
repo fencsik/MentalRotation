@@ -57,6 +57,7 @@ function GeneratePracticeTests ()
     fid = OpenOutputFile(par.fileName);
     PrintHeader(fid);
     nTrials = size(par.practiceAngles, 1);
+    answers = cell(nTrials, 1);
     for (i = 1:nTrials)
         par.trialCounter = i;
         % set angles
@@ -66,12 +67,19 @@ function GeneratePracticeTests ()
             GenerateMultipliers(par.nStimuli) .* par.practiceAngles(i, 1:par.nStimuli);
         par.trialSameDiff = par.practiceSameDiff(i, 1:par.nStimuli);
         par.trialStimuli = SelectStimuliForTrial(par.trialSameDiff);
+        answers(i) = find(strcmpi(par.trialStimuli{1}, par.trialStimuli(2:end)));
         PrintTrialLatexOutput(fid);
     end
     PrintFooter(fid);
     CloseFile(fid);
+    par.answerKeyTitle = sprintf('%s %s', par.testName, par.answerKeySuffix);
+    answerKeyFileName = GetFilename(par.answerKeyTitle);
+    fid = OpenOutputFile(answerKeyFileName);
+    GenerateAnswerKeyFile(fid, answers);
+    CloseFile(fid);
     if (par.compile)
         CompileFile(par.fileName);
+        CompileFile(answerKeyFileName);
     end
 end
 
@@ -80,13 +88,20 @@ function GenerateExperimentTests ()
     for (i = 1:par.nForms)
         par.testName = sprintf('Test Form %d', i);
         par.fileName = GetFilename(par.testName);
+        par.answers = cell(par.nExperimentalTrials);
         fid = OpenOutputFile(par.fileName);
         PrintHeader(fid)
         GenerateExperimentTrials(fid);
         PrintFooter(fid);
         CloseFile(fid);
+        par.answerKeyTitle = sprintf('%s %s', par.testName, par.answerKeySuffix);
+        answerKeyFileName = GetFilename(par.answerKeyTitle);
+        fid = OpenOutputFile(answerKeyFileName);
+        GenerateAnswerKeyFile(fid, par.answers);
+        CloseFile(fid);
         if (par.compile)
             CompileFile(par.fileName);
+            CompileFile(answerKeyFileName);
         end
     end
 end
@@ -99,6 +114,7 @@ function GenerateExperimentTrials(fid)
         par.trialAngle = SelectAnglesForTrial(par.nStimuli);
         par.trialSameDiff = SelectSameDiffForTrial(par.nStimuli, par.nMatches);
         par.trialStimuli = SelectStimuliForTrial(par.trialSameDiff);
+        par.answers(i) = find(strcmpi(par.trialStimuli{1}, par.trialStimuli(2:end)));
         PrintTrialLatexOutput(fid);
     end
 end
@@ -227,6 +243,36 @@ function PrintFooter (fid)
     fprintf(fid, '\\end{document}\n');
 end
 
+function GenerateAnswerKeyFile(fid, answers);
+    global par;
+    fprintf(fid, '\\documentclass[12pt]{article}\n');
+    fprintf(fid, '\\usepackage{fontspec}\n');
+    fprintf(fid, '\\setmainfont{Helvetica}\n');
+    fprintf(fid, '\\usepackage{lastpage}\n');
+    fprintf(fid, '\\usepackage{fancyhdr}\n');
+    fprintf(fid, '\\pagestyle{fancy}\n');
+    fprintf(fid, '\\fancyhf{}\n');
+    fprintf(fid, '\\fancyfoot[C]{\\footnotesize  Page \\thepage\\ of \\pageref{LastPage}}\n');
+    fprintf(fid, '\\fancyfoot[R]{\\footnotesize %s}\n', datestr(now, 'yyyymmdd.HHMMSS'));
+    fprintf(fid, '\\renewcommand{\\headrulewidth}{0pt}\n');
+    fprintf(fid, '\\renewcommand{\\footrulewidth}{0pt}\n');
+    fprintf(fid, '\\begin{document}\n');
+    fprintf(fid, '\\begin{center}\n');
+    fprintf(fid, '%s\n', par.answerKeyTitle);
+    fprintf(fid, '\\end{center}\n');
+    fprintf(fid, '\\begin{enumerate}\n');
+    for (i = 1:size(answers, 1))
+        fprintf(fid, '  \\item ');
+        a = answers{i};
+        for (j = 1:(numel(a)-1))
+            fprintf(fid, '%s, ', par.LETTERS{a(j)});
+        end
+        fprintf(fid, '%s\n', par.LETTERS{a(end)});
+    end
+    fprintf(fid, '\\end{enumerate}\n');
+    fprintf(fid, '\\end{document}\n');
+end
+
 function CompileFile (fileName)
     global par;
     for (i = 1:3)
@@ -301,6 +347,7 @@ function Initialize ()
     par.stimulusFileNamePrefix = 'HG';
     par.stimulusVariations = {'A', 'B'};
     par.stimulusReflections = {1, 2};
+    par.answerKeySuffix = 'Answer Key';
 end
 
 function Deinitialize ()
