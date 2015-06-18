@@ -56,16 +56,17 @@ function GeneratePracticeTests ()
     par.fileName = GetFilename(par.testName);
     fid = OpenOutputFile(par.fileName);
     PrintHeader(fid);
+    nStimuli = size(par.practiceAngles, 2);
     nTrials = size(par.practiceAngles, 1);
     answers = cell(nTrials, 1);
     for (i = 1:nTrials)
         par.trialCounter = i;
         % set angles
-        par.trialAngle = NaN(1, par.nStimuli + 1);
+        par.trialAngle = NaN(1, nStimuli + 1);
         par.trialAngle(1) = GenerateBaseAngle();
         par.trialAngle(2:end) = par.trialAngle(1) + ...
-            GenerateMultipliers(par.nStimuli) .* par.practiceAngles(i, 1:par.nStimuli);
-        par.trialSameDiff = par.practiceSameDiff(i, 1:par.nStimuli);
+            GenerateMultipliers(nStimuli) .* par.practiceAngles(i, 1:nStimuli);
+        par.trialSameDiff = par.practiceSameDiff(i, 1:nStimuli);
         par.trialStimuli = SelectStimuliForTrial(par.trialSameDiff);
         answers(i) = find(strcmpi(par.trialStimuli{1}, par.trialStimuli(2:end)));
         PrintTrialLatexOutput(fid);
