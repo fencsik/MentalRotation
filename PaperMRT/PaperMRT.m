@@ -4,7 +4,7 @@ function PaperMRT ()
 % Generates a paper-based MRT test based on Vandenberg & Kuse (1978).
 % Creates a LaTeX file, then runs LuaLaTeX to generate a PDF.
 
-    global Version = '0.1';
+    global Version = '0.2';
     try
         Main();
     catch
@@ -27,6 +27,7 @@ function LoadSettings ()
          'diff', 'same', 'same', 'diff';
          'same', 'diff', 'diff', 'same';
          'same', 'diff', 'same', 'diff'};
+    par.nForms = 2; % number of experimental forms to generate
     par.nStimuli = 4; % number of comparison stimuli
     par.nMatches = 2; % must be less than number of columns for practice trials
     par.nExperimentalTrials = 20;
@@ -75,6 +76,31 @@ function GeneratePracticeTests ()
 end
 
 function GenerateExperimentTests ()
+    global par;
+    for (i = 1:par.nForms)
+        par.testName = sprintf('Test Form %d', i);
+        par.fileName = GetFilename(par.testName);
+        fid = OpenOutputFile(par.fileName);
+        PrintHeader(fid)
+        GenerateExperimentTrials(fid);
+        PrintFooter(fid);
+        CloseFile(fid);
+        if (par.compile)
+            CompileFile(par.fileName);
+        end
+    end
+end
+
+function GenerateExperimentTrials(fid)
+    global par;
+    for (i = 1:par.nExperimentalTrials)
+        par.trialCounter = i;
+        % set angles
+        par.trialAngle = SelectAnglesForTrial(par.nStimuli);
+        par.trialSameDiff = SelectSameDiffForTrial(par.nStimuli, par.nMatches);
+        par.trialStimuli = SelectStimuliForTrial(par.trialSameDiff);
+        PrintTrialLatexOutput(fid);
+    end
 end
 
 
