@@ -205,7 +205,7 @@ function CompileFile (fileName)
     global par;
     for (i = 1:3)
         % run repeatedly to make sure all issues are resolved
-        [status, output] = system(sprintf('%s %s %s', par.compiler, ...
+        [status, output] = system(sprintf('%s %s ''%s''', par.compiler, ...
                                           par.compilerOptions, fileName));
     end
     if (par.verbose)
