@@ -1,6 +1,12 @@
 Folder for mental rotation experiments.
 
-Contents:
+Code:
+
+ - Code: Mental rotation experiment code
+ - PaperMRT: Code to generate paper-and-pencil versions of the mental
+   rotation task, based on Vandenberg & Kuse (1978).
+
+Experiments:
 
  - sexdiff01: Sex differences study run in PSYC 4802 in Fall 2013.
    Shortened version of Shepard & Metzler's (1971) design.  Found a
