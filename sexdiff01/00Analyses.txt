@@ -1,0 +1,18 @@
+List of analyses of sexdiff01.
+
+ - CombineData.r: Collects all data files together and saves it to
+   AllData.rda
+ - FilterData.r: Filters the combined data file to remove practice
+   sessions, bad responses, and problematic subjects; saves to
+   FilteredData.rda
+ - SummarizeSameData.r: Generates a data summary for analysis in SPSS and
+   the like; saves to DataSummary-4802-20144.txt
+
+ - data01.r: Extracts average accuracy and RT for each subject, samediff,
+   and rotation
+ - fig0101.r: plots RT x rotation separately for each sex and samediff
+ - fig0102.r: plots accuracy x rotation separately for each sex and
+   samediff
+ - tab0101.r: ANOVA on the effects of rotation, sex, and samediff on RT
+ - tab0102.r: ANOVA on the effects of rotation, sex, and samediff on
+   accuracy
