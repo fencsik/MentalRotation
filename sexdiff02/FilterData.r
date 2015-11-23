@@ -46,7 +46,10 @@ f.FilterData <- function () {
                        allData$Subject != 323 & allData$Subject != 332 &
                        allData$Subject != 333, ];
 
-    cat("After filtering, ", length(unique(allData$Subject)),
+    ## Make subjects a factor
+    allData$Subject <- factor(allData$Subject);
+
+    cat("After filtering, ", length(levels(allData$Subject)),
         " subjects remain\n", sep="");
 
     ## Print overall accuracy of lowest 10 remaining subjects
