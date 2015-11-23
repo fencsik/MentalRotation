@@ -14,6 +14,8 @@ f.FilterData <- function () {
 
     ## Filter out practice trials and any bad responses
     allData <- allData[allData$TrialType == "exp" & allData$Acc >= 0, ];
+    allData$TrialType <- factor(as.character(allData$TrialType));
+    allData$Response <- factor(as.character(allData$Response));
 
     ## Filter out subjects known to have problems.
     ##  - Obviously unmotivated: 61, 143
