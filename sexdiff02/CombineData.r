@@ -5,7 +5,7 @@
 
 f.CombineData <- function () {
     datadir <- "data";
-    outfile <- "alldata.rda";
+    outfile <- "AllData.rda";
 
     infiles <- file.path(datadir, dir(datadir));
 
