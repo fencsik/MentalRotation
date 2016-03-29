@@ -8,6 +8,8 @@ List of analyses of sexdiff01.
  - SummarizeSameData.r: Generates a data summary for analysis in SPSS and
    the like; saves to DataSummary-4802-20144.txt
 
+ - tab0001.r: Counts men and women at various levels of accuracy
+
  - data01.r: Extracts average accuracy and RT for each subject, samediff,
    and rotation
  - fig0101.r: plots RT x rotation separately for each sex and samediff
