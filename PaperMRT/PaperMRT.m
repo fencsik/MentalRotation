@@ -4,7 +4,7 @@ function PaperMRT ()
 % Generates a paper-based MRT test based on Vandenberg & Kuse (1978).
 % Creates a LaTeX file, then runs LuaLaTeX to generate a PDF.
 
-    global Version = '0.99';
+    global Version = '1.0';
     try
         Main();
     catch
