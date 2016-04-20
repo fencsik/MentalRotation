@@ -18,19 +18,27 @@ function LoadSettings ()
     par.verbose = 0;
     par.compile = 1;
     par.practiceAngles = ...
-        [0,  0, 20, 20;
-         20, 20, 60, 60;
-         60, 60, 100, 100;
-         60, 100, 60, 20];
+        [  0,   0,  20,  20;
+          20,  20,  60,  60;
+         100,  60, 100,  60;
+         100,  60, 100,  60;
+         100,  73,  66,  21;
+          86,  66,  92,  25;
+          80,  32,  34,  89;
+          42,  49,  74,  63];
     par.practiceSameDiff = ...
-        {'same', 'diff', 'same', 'diff';
-         'diff', 'same', 'same', 'diff';
-         'same', 'diff', 'diff', 'same';
-         'same', 'diff', 'same', 'diff'};
-    par.nForms = 2; % number of experimental forms to generate
+        {'same', 'diff', 'diff', 'diff';
+         'diff', 'same', 'diff', 'diff';
+         'diff', 'diff', 'diff', 'same';
+         'diff', 'diff', 'same', 'diff';
+         'diff', 'same', 'diff', 'diff';
+         'diff', 'diff', 'same', 'diff';
+         'same', 'diff', 'diff', 'diff';
+         'diff', 'diff', 'same', 'diff'};
+    par.nForms = 1; % number of experimental forms to generate
     par.nStimuli = 4; % number of comparison stimuli
-    par.nMatches = 2; % must be less than number of columns for practice trials
-    par.nExperimentalTrials = 20;
+    par.nMatches = 1; % must be less than number of columns for practice trials
+    par.nExperimentalTrials = 32;
     par.angleRange = [20 100];
     par.sameDiff = {'same', 'diff'};
     par.stimulusSize = '1.25in'; % size of stimulus
