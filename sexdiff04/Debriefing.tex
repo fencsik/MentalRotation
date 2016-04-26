@@ -1,0 +1,76 @@
+\documentclass[10pt]{article}
+
+\usepackage[hmargin=1in,vmargin=0.25in]{geometry}
+
+\usepackage{fontspec}
+\setmainfont{Gill Sans}
+
+\begin{document}
+
+\pagestyle{empty}
+
+\newsavebox{\debriefingtext}
+
+\sbox{\debriefingtext}{%
+  \begin{minipage}{1.0\linewidth}
+    \bigskip
+    \footnotesize
+    \setlength{\parindent}{3ex}
+    \begin{center}\small
+      Rotation Experiment Debriefing
+    \end{center}
+
+    Thank you for volunteering to participate in this experiment.  The
+    purpose is to investigate how people store and manipulate visual
+    information in their minds.  Many previous studies have shown that men
+    tend to perform better than women in the mental rotation task that you
+    performed today.  However, other studies show that these differences
+    disappear in various situations, including when people are told that
+    women perform better than men.  Also, there are little to no sex
+    differences in other visual-processing tasks.
+
+    Half of the volunteers in this experiment were told that men are better
+    than women in this task, and half were told the opposite.  We expect to
+    find that the different instructions will reduce or eliminate sex
+    differences in the task.  This study is part of a larger set of studies
+    investigating whether these sex differences are due to fundamental
+    differences in mental processing or more superficial differences in how
+    men and women choose to perform the task.
+
+    If you have any questions or concerns about this study, please contact
+    Prof.\ David Fencsik by phone at 510-885-3484 or by email at
+    \mbox{david.fencsik@csueastbay.edu}.
+
+    Thank you again.
+
+    \bigskip\bigskip
+
+  \end{minipage}
+}
+
+\begin{center}
+  \hrulefill
+
+  \usebox{\debriefingtext}
+
+  \hrulefill
+
+  \usebox{\debriefingtext}
+
+  \hrulefill
+
+  \usebox{\debriefingtext}
+
+  \hrulefill
+
+  \usebox{\debriefingtext}
+
+  \hrulefill
+\end{center}
+
+
+\end{document}
+
+% Local Variables:
+% TeX-engine: luatex
+% End:
