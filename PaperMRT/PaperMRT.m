@@ -203,7 +203,6 @@ function PrintHeader (fid)
     fprintf(fid, '\\usepackage{graphicx}\n');
     fprintf(fid, '\\DeclareGraphicsExtensions{.pdf}\n');
     fprintf(fid, '\\usepackage{fontspec}\n');
-    fprintf(fid, '\\setmainfont{Helvetica}\n');
     fprintf(fid, '\\usepackage{fancyhdr}\n');
     fprintf(fid, '\\pagestyle{fancy}\n');
     fprintf(fid, '\\fancyhf{}\n');
@@ -256,7 +255,6 @@ function GenerateAnswerKeyFile(fid, answers);
     global par;
     fprintf(fid, '\\documentclass[12pt]{article}\n');
     fprintf(fid, '\\usepackage{fontspec}\n');
-    fprintf(fid, '\\setmainfont{Helvetica}\n');
     fprintf(fid, '\\usepackage{lastpage}\n');
     fprintf(fid, '\\usepackage{fancyhdr}\n');
     fprintf(fid, '\\pagestyle{fancy}\n');
