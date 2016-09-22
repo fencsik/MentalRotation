@@ -38,7 +38,7 @@ function LoadSettings ()
     par.nForms = 1; % number of experimental forms to generate
     par.nStimuli = 4; % number of comparison stimuli
     par.nMatches = 1; % must be less than number of columns for practice trials
-    par.nExperimentalTrials = 32;
+    par.nExperimentalTrials = 16;
     par.angleRange = [20 100];
     par.sameDiff = {'same', 'diff'};
     par.stimulusSize = '1.25in'; % size of stimulus
